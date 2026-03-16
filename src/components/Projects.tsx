@@ -68,6 +68,7 @@ const projects: Project[] = [
       "Live production support with error logging and user analytics",
       "Performance optimization for sub-2s loan processing times",
     ],
+    githubUrl: "https://github.com/amansingh812",
     type: "Mobile App",
     status: "Shipped",
     featured: true,
@@ -106,6 +107,7 @@ const projects: Project[] = [
       "CleverTap for user engagement tracking and DevRev for issue management",
       "Offline-first capability with local database sync",
     ],
+    githubUrl: "https://github.com/amansingh812",
     type: "Mobile App",
     status: "Shipped",
     featured: true,
@@ -140,8 +142,8 @@ const projects: Project[] = [
       "User authentication with JWT tokens",
       "Responsive mobile-first design",
     ],
-    liveUrl: "https://mobile-armour.vercel.app",
-    githubUrl: "https://github.com/amansingh812/mobile-armour",
+    liveUrl: "https://mobilearmour.com.au/",
+    githubUrl: "https://github.com/amansingh812",
     type: "Web App",
     status: "Shipped",
     featured: true,
@@ -179,6 +181,8 @@ const projects: Project[] = [
       "Background task processing with Celery for scheduled posts",
       "PostgreSQL database with optimized queries for analytics",
     ],
+    liveUrl: "https://www.autozenlyai.com/",
+    githubUrl: "https://github.com/amansingh812",
     type: "SaaS",
     status: "In Development",
     featured: true,
@@ -216,7 +220,8 @@ const projects: Project[] = [
       "Image gallery with PhotoSwipe lightbox and Drift Zoom",
       "Performance optimization with Next.js 15 App Router",
     ],
-    liveUrl: "https://hsracegear.com",
+    liveUrl: "https://hsracegear.com/",
+    githubUrl: "https://github.com/amansingh812",
     type: "E-commerce",
     status: "Live",
     featured: true,
@@ -238,8 +243,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     project.status === "Live"
       ? "bg-green-50 text-green-700 border-green-200"
       : project.status === "In Development"
-      ? "bg-amber-50 text-amber-700 border-amber-200"
-      : "bg-warm/40 text-olive border-warm";
+        ? "bg-amber-50 text-amber-700 border-amber-200"
+        : "bg-warm/40 text-olive border-warm";
 
   return (
     <AnimatedSection delay={index * 0.1}>
