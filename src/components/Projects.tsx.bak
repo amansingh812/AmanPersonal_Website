@@ -1,0 +1,417 @@
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ExternalLink,
+  Github,
+  Bot,
+  Shield,
+  CreditCard,
+  BarChart3,
+  Zap,
+  CalendarDays,
+  Link2,
+  Database,
+  Layers,
+  Package,
+  Star,
+  ChevronDown,
+  ChevronUp,
+  ShoppingBag,
+  Ruler,
+  Image,
+  Settings,
+  Users,
+  Cpu,
+  Globe,
+  Smartphone,
+  Bell,
+  Lock,
+  RefreshCw,
+  Activity,
+  GitBranch,
+} from "lucide-react";
+import AnimatedSection from "./AnimatedSection";
+
+type Highlight = { icon: React.ElementType; text: string };
+
+type Project = {
+  title: string;
+  tagline: string;
+  company: string;
+  description: string;
+  highlights: Highlight[];
+  techStack: { category: string; items: string[] }[];
+  features: string[];
+  liveUrl?: string;
+  githubUrl?: string;
+  type: string;
+  status: "Live" | "In Development" | "Shipped";
+  featured: boolean;
+};
+
+const projects: Project[] = [
+  {
+    title: "AutoZenlyAI",
+    tagline: "Multi-platform AI social media automation SaaS",
+    company: "Personal Project",
+    status: "In Development",
+    description:
+      "A full-stack SaaS platform that lets creators and brands automate their entire social media presence. Connects to multiple AI providers, schedules posts via a visual calendar, auto-generates content from RSS feeds, and handles billing — all from one dashboard.",
+    highlights: [
+      { icon: Bot, text: "Multi-provider AI: Claude, GPT-4, Gemini, Mistral, Cohere, Groq" },
+      { icon: CalendarDays, text: "Visual calendar scheduler with Celery + APScheduler" },
+      { icon: Zap, text: "Auto-reply, RSS-to-post pipeline, Notion content sync" },
+      { icon: CreditCard, text: "Subscription billing via Dodo Payments" },
+      { icon: BarChart3, text: "Analytics dashboard with engagement metrics" },
+      { icon: Link2, text: "Twitter/X OAuth, multi-account management" },
+    ],
+    techStack: [
+      { category: "Frontend", items: ["Next.js 14", "TypeScript", "Tailwind CSS", "Zustand", "Lucide React"] },
+      { category: "Backend", items: ["FastAPI", "Python", "PostgreSQL", "SQLAlchemy", "Alembic"] },
+      { category: "AI Providers", items: ["Anthropic Claude", "OpenAI", "Google Gemini", "Mistral", "Cohere", "Groq"] },
+      { category: "Infra & Auth", items: ["Redis", "Celery", "JWT", "bcrypt", "Tweepy", "Notion API", "RSS / feedparser"] },
+    ],
+    features: [
+      "AI content generation with 6 provider options + automatic fallback chain",
+      "Visual post calendar with drag-and-drop scheduling across time zones",
+      "RSS feed → AI-rewritten posts, auto-published on a set cadence",
+      "Notion workspace sync — pull drafts directly into the scheduler",
+      "Auto-reply bot with configurable tone and keyword triggers",
+      "Connected accounts manager with full OAuth 2.0 flows",
+      "Subscription tiers with Dodo Payments webhooks + billing portal",
+      "Dark / light theme toggle with full local persistence",
+    ],
+    type: "SaaS · Full-Stack",
+    featured: true,
+  },
+  {
+    title: "HS Race Gear",
+    tagline: "Custom racing gear e-commerce with 3D product viewer",
+    company: "Client Project",
+    status: "Live",
+    description:
+      "A full-featured e-commerce platform for a premium custom racing gear brand. Shoppers configure bespoke racing suits, fill custom measurement forms, view 3D product previews, and place orders — all backed by a full admin dashboard, MongoDB, and a comprehensive SEO strategy.",
+    highlights: [
+      { icon: ShoppingBag, text: "Full cart, checkout, wishlist & product compare" },
+      { icon: Ruler, text: "Custom measurement forms for bespoke race suits" },
+      { icon: Image, text: "3D product viewer via Google Model Viewer" },
+      { icon: Settings, text: "Full admin dashboard — orders, products, customers" },
+      { icon: Users, text: "NextAuth.js with JWT & admin role protection" },
+      { icon: Globe, text: "SEO suite: schema markup, GBP strategy, sitemap" },
+    ],
+    techStack: [
+      { category: "Frontend", items: ["Next.js 15", "React 19", "Framer Motion", "Swiper", "Bootstrap 5", "SASS"] },
+      { category: "Backend & DB", items: ["MongoDB", "Mongoose", "NextAuth.js", "bcryptjs", "JWT", "Nodemailer"] },
+      { category: "UI & Media", items: ["Google Model Viewer (3D)", "Drift Zoom", "PhotoSwipe", "React Compare Slider", "RC Slider"] },
+      { category: "Pages", items: ["Custom Fit Flow", "Custom Karting / Race / Powerboat Suits", "Blog", "Store Locator", "Certifications"] },
+    ],
+    features: [
+      "Custom race suit configurator with measurement form + PDF download",
+      "3D product viewer — customers rotate and inspect gear before buying",
+      "Side-by-side product comparison with RC Slider",
+      "Image zoom (Drift Zoom) and full gallery (PhotoSwipe 5)",
+      "Multi-category catalog: suits, gloves, karting, powerboat, shoes",
+      "Admin portal: manage products, orders, customers, blog posts",
+      "Email notifications via Nodemailer for orders and custom enquiries",
+      "Full SEO suite: keyword strategy, GBP, schema markup, sitemap.js",
+    ],
+    type: "E-commerce · Full-Stack",
+    featured: true,
+  },
+  {
+    title: "D2C Planet TA Portal",
+    tagline: "Enterprise Flutter app for LTFS Farm Trade Advance & Two-Wheeler dealer financing",
+    company: "L&T Finance (Partner Planner Team)",
+    status: "Shipped",
+    description:
+      "An enterprise-grade, cross-platform Flutter mobile application (Android + iOS) built for LTFS dealers and traders. The app serves two business lines — Farm Trade Advance (TA) and Two-Wheeler (TW) dealer financing — giving field-level dealers a single self-service portal to manage loans, track withdrawals, initiate renewals/enhancements, monitor business performance, and receive intelligent nudge-based lifecycle alerts.",
+    highlights: [
+      { icon: Bell,       text: "Smart Nudges System — 5 lifecycle alerts (IFTA, grace date, maturity) with distinct UI treatments" },
+      { icon: Activity,   text: "TW Business Performance Dashboard with Volume/Unit toggles and Syncfusion charts" },
+      { icon: Lock,       text: "Full security stack: biometric auth, AES-encrypted APIs, emulator/root/jailbreak detection" },
+      { icon: RefreshCw,  text: "Multi-step TA flows: New TA, Withdrawal, Enhancement (4-step), Renewal, Adhoc" },
+      { icon: Database,   text: "Firebase Remote Config, CleverTap analytics, DevRev in-app support SDK" },
+      { icon: GitBranch,  text: "3-environment flavor config (dev/stg/prod) with isolated Firebase projects per env" },
+    ],
+    techStack: [
+      { category: "Framework",     items: ["Flutter 3.x", "Dart SDK ^3.7.2", "flutter_bloc ^9.1.0", "auto_route ^9.1.0"] },
+      { category: "Architecture",  items: ["Clean Architecture", "BLoC / Cubit", "get_it + injectable", "feature-first folders"] },
+      { category: "Networking",    items: ["dio ^5.5.0", "Custom DioInterceptor", "AES encryption (encrypt ^5.0.3)", "json_serializable"] },
+      { category: "Firebase & Analytics", items: ["firebase_core", "firebase_remote_config", "cloud_firestore", "CleverTap ^3.8.0", "DevRev SDK"] },
+      { category: "Auth & Security", items: ["local_auth (biometric)", "pin_code_fields (MPIN)", "flutter_secure_storage", "app_integrity_checker", "Root/Jailbreak detection"] },
+      { category: "UI & Charts",   items: ["responsive_builder", "shimmer", "syncfusion_flutter_charts", "syncfusion_flutter_pdfviewer", "gradient_borders", "super_tooltip"] },
+    ],
+    features: [
+      "Designed & built TwNudgesBloc — aggregates 5 nudge types from global AppBloc state into typed NudgeEntity objects with a type tag, emits flattened list for UI dispatch to 5 custom slider widgets",
+      "Built the complete nudge system end-to-end: data model → entity → BLoC aggregation → NudgeCard type dispatch → custom widgets for both Farm TA and TW portals",
+      "New TA Journey: multi-step Limit Details → Sale Details → Thank You with form validation and API submission",
+      "Enhancement Flow: 4-step Deal Details → Owner Details → Sale Details → Thank You for increasing existing TA limits",
+      "Withdrawal, Renew TA, and Adhoc TA flows with dedicated confirmation screens",
+      "TW Business Performance Dashboard: dynamic Volume/Unit toggle, VPP/VPP+ achievement progress bars, animated delinquency chart, monthly/quarterly frequency filter",
+      "VPP Calculator screen for interactive VPP/VPP+ scheme benefit estimates",
+      "Security hardening: emulator detection, 9+ root indicator checks on Android, jailbreak path detection on iOS, AES-encrypted request payloads via DioInterceptor, session timeout auto-logout",
+      "LOB-based routing — automatically routes to Farm TA or TW dashboard based on login response lob field",
+      "Multi-dealer support — dealers managing multiple IDs with profile photo, email, DOB, PAN management",
+      "3-environment flavor setup (dev/stg/prod) with per-flavor Firebase projects for isolated CI/CD deployments",
+    ],
+    type: "Mobile App · Enterprise · Fintech",
+    featured: true,
+  },
+  {
+    title: "D2C Farm Loan Top-Up",
+    tagline: "End-to-end digital lending journey in the Planet App",
+    company: "L&T Finance",
+    status: "Shipped",
+    description:
+      "Led the full development of the Farm Loan Top-Up D2C flow in L&T Finance's flagship Planet App — serving millions of rural borrowers across India. Covers KYC, bank verification, loan customisation, eligibility checks, and BRE validations, wired to Salesforce and live production systems.",
+    highlights: [
+      { icon: Shield, text: "KYC via HyperVerge SDK — liveness + doc verification" },
+      { icon: CreditCard, text: "UPI Mandate setup and complex EMI calculations" },
+      { icon: Database, text: "Salesforce API integration for real-time CRM sync" },
+      { icon: Layers, text: "BLOC architecture — clean UI / logic / data separation" },
+      { icon: BarChart3, text: "600+ JIRA tickets resolved across production releases" },
+      { icon: Smartphone, text: "Live production support via User Experian log analysis" },
+    ],
+    techStack: [
+      { category: "Mobile", items: ["Flutter", "Dart", "BLOC Architecture", "Provider"] },
+      { category: "Integrations", items: ["Salesforce API", "HyperVerge SDK", "UPI / e-NACH", "BRE Engine"] },
+      { category: "Tooling", items: ["JIRA", "Git", "User Experian", "Postman"] },
+      { category: "Platform", items: ["iOS", "Android", "Planet App (L&T Finance)"] },
+    ],
+    features: [
+      "KYC with HyperVerge — face liveness, Aadhaar & PAN verification",
+      "Bank account verification via penny drop + IFSC validation",
+      "Dynamic loan customisation (amount, tenure, EMI preview)",
+      "BRE eligibility validation with real-time Salesforce data",
+      "UPI Mandate creation and e-NACH setup for auto-debit",
+      "Multi-step form with persistent draft state across app restarts",
+      "Production log triage via User Experian analytics",
+    ],
+    type: "Mobile App · Fintech",
+    featured: false,
+  },
+  {
+    title: "Mobile Armour",
+    tagline: "AI-assisted mobile accessories e-commerce",
+    company: "Personal Project",
+    status: "Shipped",
+    description:
+      "A full-stack Next.js e-commerce store for mobile accessories featuring SSR/SSG, an OpenAI-powered product assistant, Stripe payments, and a custom admin dashboard — resulting in a 20% increase in user engagement.",
+    highlights: [
+      { icon: Globe, text: "SSR/SSG — 20% faster page loads" },
+      { icon: Bot, text: "AI product chatbot via OpenAI API" },
+      { icon: CreditCard, text: "Stripe payments + NextAuth.js" },
+      { icon: Package, text: "Custom admin dashboard" },
+      { icon: BarChart3, text: "20% increase in user engagement" },
+      { icon: Cpu, text: "MongoDB Atlas + Node.js backend" },
+    ],
+    techStack: [
+      { category: "Frontend", items: ["Next.js", "React", "TypeScript", "Tailwind CSS"] },
+      { category: "Backend", items: ["Node.js", "MongoDB Atlas", "NextAuth.js", "Stripe"] },
+      { category: "AI & Tools", items: ["OpenAI API", "Postman", "Git"] },
+      { category: "Features", items: ["SSR/SSG", "Admin Dashboard", "AI Chatbot", "Payments"] },
+    ],
+    features: [
+      "Hybrid SSR/SSG rendering for optimal page performance",
+      "AI chatbot helping users find compatible accessories by device",
+      "Stripe checkout with webhooks for order processing",
+      "Admin dashboard: inventory management, order tracking, analytics",
+      "NextAuth.js with Google OAuth and email magic links",
+    ],
+    githubUrl: "https://github.com/amansingh812",
+    type: "Full-Stack · Web",
+    featured: false,
+  },
+];
+
+function TechBadge({ label }: { label: string }) {
+  return (
+    <span className="px-2.5 py-1 text-[11px] font-mono rounded-full bg-cream border border-warm/50 text-muted hover:text-olive hover:border-olive/30 transition-colors cursor-default">
+      {label}
+    </span>
+  );
+}
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const [expanded, setExpanded] = useState(false);
+
+  const statusColor =
+    project.status === "Live"
+      ? "bg-green-50 text-green-700 border-green-200"
+      : project.status === "In Development"
+      ? "bg-amber-50 text-amber-700 border-amber-200"
+      : "bg-warm/40 text-olive border-warm";
+
+  return (
+    <AnimatedSection delay={index * 0.1}>
+      <motion.div
+        className="group relative rounded-3xl border border-warm/30 bg-warm/5 hover:border-warm/60 transition-all duration-500 overflow-hidden"
+        whileHover={{ y: -3 }}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      >
+        {/* Top accent line */}
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-olive/30 to-transparent" />
+
+        {/* Hover glow */}
+        <div className="absolute top-0 right-0 w-80 h-80 bg-olive/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+        <div className="relative z-10 p-7 sm:p-8">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-5">
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center gap-2 mb-2.5">
+                <span className="px-3 py-1 text-[11px] font-mono rounded-full bg-olive/10 text-olive border border-olive/20">
+                  {project.type}
+                </span>
+                <span className={`px-3 py-1 text-[11px] font-mono rounded-full border ${statusColor}`}>
+                  {project.status === "Live" && <span className="mr-1">●</span>}
+                  {project.status}
+                </span>
+                {project.featured && (
+                  <span className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-mono rounded-full bg-warm/30 text-muted border border-warm/40">
+                    <Star size={9} /> Featured
+                  </span>
+                )}
+                {project.company !== "Personal Project" && (
+                  <span className="text-[11px] text-muted/50 font-mono">@ {project.company}</span>
+                )}
+              </div>
+              <h3 className="text-xl sm:text-2xl font-semibold text-dark group-hover:text-olive transition-colors duration-300">
+                {project.title}
+              </h3>
+              <p className="text-sm text-muted mt-1 font-medium italic">{project.tagline}</p>
+            </div>
+
+            {/* Links */}
+            <div className="flex items-center gap-2 flex-shrink-0">
+              {project.githubUrl && (
+                <motion.a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
+                  className="p-2.5 rounded-full border border-warm/30 text-muted hover:text-dark hover:border-olive/40 transition-all"
+                  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} title="GitHub">
+                  <Github size={15} />
+                </motion.a>
+              )}
+              {project.liveUrl && (
+                <motion.a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
+                  className="p-2.5 rounded-full border border-warm/30 text-muted hover:text-dark hover:border-olive/40 transition-all"
+                  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} title="Live Site">
+                  <ExternalLink size={15} />
+                </motion.a>
+              )}
+            </div>
+          </div>
+
+          {/* Description */}
+          <p className="text-sm text-muted leading-relaxed mb-6 max-w-3xl">{project.description}</p>
+
+          {/* Highlights */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 mb-6">
+            {project.highlights.map((h, j) => (
+              <div key={j} className="flex items-start gap-3 p-3 rounded-xl bg-cream/60 border border-warm/20">
+                <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-olive/10 flex items-center justify-center mt-0.5">
+                  <h.icon size={13} className="text-olive" />
+                </div>
+                <span className="text-xs text-dark leading-snug">{h.text}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Tech Stack */}
+          <div className="space-y-2.5 mb-5 p-4 rounded-2xl bg-cream/40 border border-warm/20">
+            <p className="text-[10px] font-mono text-muted/50 uppercase tracking-widest mb-3">Tech Stack</p>
+            {project.techStack.map((cat) => (
+              <div key={cat.category} className="flex flex-wrap items-start gap-2">
+                <span className="text-[10px] font-mono text-muted/60 uppercase tracking-wider w-24 flex-shrink-0 pt-1">
+                  {cat.category}
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {cat.items.map((item) => (
+                    <TechBadge key={item} label={item} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Expand features */}
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="flex items-center gap-1.5 text-xs font-mono text-olive/70 hover:text-olive transition-colors"
+          >
+            {expanded ? <><ChevronUp size={13} /> Hide features</> : <><ChevronDown size={13} /> View all features ({project.features.length})</>}
+          </button>
+
+          <AnimatePresence>
+            {expanded && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="overflow-hidden"
+              >
+                <ul className="mt-4 space-y-2 border-t border-warm/20 pt-4">
+                  {project.features.map((f, i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm text-muted">
+                      <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-olive/60 mt-2" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </motion.div>
+    </AnimatedSection>
+  );
+}
+
+export default function Projects() {
+  const featured = projects.filter((p) => p.featured);
+  const others = projects.filter((p) => !p.featured);
+
+  return (
+    <section id="projects" className="py-28 px-6">
+      <div className="max-w-5xl mx-auto">
+        <AnimatedSection>
+          <p className="text-sm font-mono text-olive tracking-wider uppercase mb-4">Projects</p>
+          <h2 className="text-3xl sm:text-4xl font-semibold text-dark mb-4 tracking-tight">
+            Things I&apos;ve built
+          </h2>
+          <p className="text-muted mb-16 max-w-xl leading-relaxed">
+            From AI-powered SaaS platforms to fintech mobile apps serving millions — a detailed
+            look at what I&apos;ve shipped, the stack behind each, and the problems they solve.
+          </p>
+        </AnimatedSection>
+
+        {/* Featured projects */}
+        <div className="space-y-8 mb-8">
+          {featured.map((project, i) => (
+            <ProjectCard key={project.title} project={project} index={i} />
+          ))}
+        </div>
+
+        {/* Other projects */}
+        {others.length > 0 && (
+          <>
+            <AnimatedSection delay={0.1}>
+              <p className="text-xs font-mono text-muted/50 uppercase tracking-widest mb-6 mt-14">
+                More work
+              </p>
+            </AnimatedSection>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {others.map((project, i) => (
+                <ProjectCard key={project.title} project={project} index={i + 2} />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      <div className="section-divider mt-28 max-w-4xl mx-auto" />
+    </section>
+  );
+}
