@@ -15,7 +15,7 @@ const experience = [
     highlights: [
       "Contributed to Planet App, L&T Finance's flagship digital lending platform, managing key modules including Farm Loan Top-Up and Personal Loan journeys",
       "Led end-to-end development of the Farm Loan Top-Up flow — KYC, loan customization, bank verification, eligibility checks, and BRE validations",
-      "Provided live production support, analyzing logs and user feedback via User Experian to resolve critical issues and minimize downtime",
+      "Provided live production support, analyzing logs and user feedback via analytics to resolve critical issues and minimize downtime",
       "Collaborated with business and QA teams through JIRA, ensuring on-time delivery of stable builds",
     ],
     tech: ["Flutter", "BLOC", "REST APIs", "JIRA", "Git"],
